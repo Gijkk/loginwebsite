@@ -9,7 +9,7 @@ def test_login_page():
     
     # Kiểm tra mã HTTP
     assert response.status_code == 200
-    assert b"Đăng nhập" in text
+    assert "Đăng nhập" in text
 def test_login_success():
     client = app.test_client()
 
@@ -19,7 +19,7 @@ def test_login_success():
     }, follow_redirects=True)
 
     assert response.status_code == 200
-    assert b"Đăng nhập thành công" in text
+    assert "Đăng nhập thành công" in text
 
 
 def test_login_fail():
@@ -30,5 +30,6 @@ def test_login_fail():
         "password": "sai"
     })
 
-    assert b"Sai tài khoản" in text
+    assert "Sai tài khoản" in text
     
+
