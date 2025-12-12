@@ -1,15 +1,16 @@
 from app import app
 
 def test_login_page():
-    # Tạo client giả để test
     client = app.test_client()
-
-    # Gửi GET request đến trang chủ
     response = client.get("/")
-    
-    # Kiểm tra mã HTTP
+
+    # decode nội dung HTML trả về
+    text = response.data.decode("utf-8")
+
     assert response.status_code == 200
     assert "Đăng nhập" in text
+
+
 def test_login_success():
     client = app.test_client()
 
@@ -17,6 +18,8 @@ def test_login_success():
         "username": "admin",
         "password": "123"
     }, follow_redirects=True)
+
+    text = response.data.decode("utf-8")
 
     assert response.status_code == 200
     assert "Đăng nhập thành công" in text
@@ -30,6 +33,6 @@ def test_login_fail():
         "password": "sai"
     })
 
-    assert "Sai tài khoản" in text
-    
+    text = response.data.decode("utf-8")
 
+    assert "Sai tài khoản" in text
